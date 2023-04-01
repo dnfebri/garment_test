@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.is-input {
+  @apply -top-7 scale-75 opacity-100
+}
+
+.paginate-container {
+  @apply flex space-x-2
+}
+
+.paginate-page-button {
+  @apply px-2 py-1 bg-white text-black  border border-slate-300 rounded shadow-md
+}
+
+.paginate-activeLink {
+  @apply bg-indigo-500 font-black shadow-md
+}
+
+.paginate-disabledLink {
+  @apply text-slate-500 bg-slate-100 shadow-none
+}

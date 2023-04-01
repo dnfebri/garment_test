@@ -5,10 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   @viteReactRefresh
+  @vite('resources/css/app.css')
   @vite('resources/js/app.jsx')
   <title>Garment_test</title>
 </head>
 <body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      if (localStorage.getItem('sidebar-expanded') == 'true') {
+          document.querySelector('body').classList.add('sidebar-expanded');
+      } else {
+          document.querySelector('body').classList.remove('sidebar-expanded');
+      }
+    </script>  
   <div id="app"></div>
+  <script>
+
+    var APP_URL_API = '{{ env('APP_URL') }}';
+  
+  </script>
 </body>
 </html>
