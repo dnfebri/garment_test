@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    public function authToken(Request $request)
+    {
+        $token = $request->header("tokenlogin");
+        $user = User::where('remember_token',$token)->first();
+        return response()->json([
+            "login" => $user ? true : false,
+        ], 200);
+    }
+
     public function login(Request $request)
     {
         $user = User::where('email',$request->email)->first();

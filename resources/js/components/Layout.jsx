@@ -5,18 +5,35 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from './partials/Sidebar';
 import Header from './partials/Header';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 function Layout({children}) {
   const navigate = useNavigate();
   // const {isError} = useSelector((state => state.auth.authState));
   // // console.log('Dashboard', useSelector((state => state.auth))); /// INI di akses terus
+  // const [isLogin, setIsLogin] = useState(false)
   
   const [tokenLogin] = useState(Cookies.get('tokenLogin'));
+
+  const getLogin = async() => {
+    try {
+      axios.defaults.headers.tokenlogin = tokenLogin
+      await axios.get(APP_URL_API + "/get-auth").then(response => {
+        console.log(response.data.login);
+        if (!response.data.login) {
+          navigate("/login");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   useEffect(()=>{
     if(!tokenLogin){
       navigate("/login");
     }
+    getLogin();
   }, [ tokenLogin ]);
 
   // useEffect(()=>{

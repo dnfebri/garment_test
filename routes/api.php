@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 include __DIR__.'/api/login.php';
+include __DIR__.'/api/user.php';
 
 Route::get("init", function ()
 {

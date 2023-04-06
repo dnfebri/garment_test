@@ -18,11 +18,26 @@ function Login() {
   const [massage, setMassage] = useState('')
   // console.log(APP_URL_API);
 
+  // const [isTokenValit, setIsTokenValit] = useState(false)
   const [tokenLogin] = useState(Cookies.get('tokenLogin'));
+
+  const getLogin = async() => {
+    try {
+      axios.defaults.headers.tokenlogin = tokenLogin
+      await axios.get(APP_URL_API + "/get-auth").then(response => {
+        console.log(response.data.login);
+        if (response.data.login) {
+          navigate("/dashboard");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   useEffect(()=>{
     if(tokenLogin){
-      navigate("/dashboard");
+      getLogin()
     }
   }, [ tokenLogin ]);
   
