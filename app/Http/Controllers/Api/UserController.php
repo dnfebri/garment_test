@@ -10,9 +10,10 @@ class UserController extends Controller
 {
     public function getAll()
     {
-        $users = User::all();
+        $user = User::all();
         return response()->json([
-            "data" => $users
+            'message' => '',
+            'data' => $user
         ], 200);
     }
 }

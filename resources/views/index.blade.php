@@ -10,14 +10,14 @@
   <title>Garment_test</title>
 </head>
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  {{-- <noscript>You need to enable JavaScript to run this app.</noscript>
     <script>
       if (localStorage.getItem('sidebar-expanded') == 'true') {
           document.querySelector('body').classList.add('sidebar-expanded');
       } else {
           document.querySelector('body').classList.remove('sidebar-expanded');
       }
-    </script>  
+    </script>   --}}
   <div id="app"></div>
   <script>
 

@@ -4,8 +4,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './router';
-import store from './app/store';
-import { Provider } from 'react-redux';
 // import './css/style.css';
 
 if (document.getElementById('app')) {
@@ -13,11 +11,7 @@ if (document.getElementById('app')) {
 
   Index.render(
       <React.StrictMode>
-        <BrowserRouter>
-          <Provider store={store}>
-            <Router/>
-          </Provider>
-        </BrowserRouter>
+        <Router />
       </React.StrictMode>
   )
 }

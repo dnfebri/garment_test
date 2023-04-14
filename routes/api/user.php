@@ -1,6 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
-// Route::get('/get-auth', [UserController::class, 'getAll']);
+Route::get('/users', [UserController::class, 'getAll']);

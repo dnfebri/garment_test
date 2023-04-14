@@ -1,0 +1,12 @@
+GET http://127.0.0.1:8000/api/users
+
+###
+POST http://127.0.0.1:8000/api/auth/register
+Content-Type: "application/json"
+
+{
+  "name": "Admin",
+  "email": "admin@admin.com",
+  "password": "12345678",
+  "password_confirmation": "12345678"
+}
