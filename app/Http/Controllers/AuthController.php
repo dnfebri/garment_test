@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->messages());
+            return response()->json($validator->messages(), 400);
         }
         $credentials = request(['email', 'password']);
 
@@ -45,7 +46,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages());
+            return response()->json($validator->messages(), 400);
         }
 
         try {
@@ -66,10 +67,18 @@ class AuthController extends Controller
 
     public function me()
     {
+        $roleId = 0;
         if (!auth()->user()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return response()->json(auth()->user());
+        $roleUser = RoleUser::where('user_id', auth()->user()->id)->first();
+        if ($roleUser) {
+            $roleId = $roleUser->role_id;
+        }
+        return response()->json([
+            'user' => auth()->user(),
+            'roleId' => $roleId
+        ]);
     }
 
     public function logout()

@@ -20,10 +20,11 @@ class UserController extends Controller
         if ($roleUser['role_id'] !== 1) {
             return response()->json(['error' => 'Not Access'], 402);
         }
-        $user = User::all();
+        $user = new User();
+        $data = $user->getUsersRole();
         return response()->json([
             'message' => '',
-            'data' => $user
+            'data' => $data
         ], 200);
     }
 

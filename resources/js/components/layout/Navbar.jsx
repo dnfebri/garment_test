@@ -1,5 +1,7 @@
 import React from 'react'
-import { useSidebarOpen } from '../../App/Store'
+import { useSidebarOpen } from '../../app/Store'
+import { useUser } from '../../app/useUser';
+import UserNavbar from './UserNavbar';
 
 const Navbar = () => {
   const SidebarOpen = useSidebarOpen((state) => state.setSidebarOpen);
@@ -30,8 +32,7 @@ const Navbar = () => {
           </div>
 
           {/* Header: Right side */}
-          <div className="flex items-center">
-
+          <div className="flex items-center space-x-4">
             <button
               className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ml-3 `}
               // onClick={(e) => { e.stopPropagation(); setSearchModalOpen(true); }}
@@ -43,7 +44,7 @@ const Navbar = () => {
                 <path className="fill-current text-slate-400" d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
               </svg>
             </button>
-
+            <UserNavbar />
           </div>
 
         </div>

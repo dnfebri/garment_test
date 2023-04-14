@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard'
 import PageNotFound from '../components/PageNotFound'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Users from '../pages/Users'
 
 const index = () => {
   return (
@@ -15,6 +16,7 @@ const index = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Example />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/users" element={<Users />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

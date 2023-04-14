@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { useSidebarOpen } from '../../App/Store';
+import { useSidebarOpen } from '../../app/Store';
 import { SIDEBAR_LINK } from '../../constan/sidebarLink';
+import { MdMoveToInbox, MdDashboard, MdAdminPanelSettings, MdEmojiEvents } from "react-icons/md";
+import { AiFillCaretRight } from "react-icons/ai";
+import { useUser } from '../../app/useUser';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const SideBar = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const Open = useSidebarOpen((state) => state.open);
   const SidebarOpen = useSidebarOpen((state) => state.setSidebarOpen);
+  const {userRole} = useUser();
   
   useEffect(() => {
     if (sidebarExpanded) {
@@ -21,7 +26,7 @@ const SideBar = () => {
       {/* Sidebar backdrop (mobile only) */}
       <div
         className={`
-          fixed inset-0 bg-slate-900 bg-opacity-30 z-40 transition-opacity duration-200 
+          fixed inset-0 bg-slate-900 bg-opacity-30 z-40 transition-opacity duration-200
           lg:hidden lg:z-auto
           ${Open ? 'opacity-100' : 'opacity-0 pointer-events-none'}
         `}
@@ -60,13 +65,17 @@ const SideBar = () => {
         </div>
 
         {/* Links */}
-        <div className="space-y-8 overflow-y-auto no-scrollbar">
+        <div className="space-y-4 overflow-y-auto no-scrollbar">
           {/* Pages group */}
           {SIDEBAR_LINK.map((row, idx) => (
-            <div key={idx} onMouseEnter={() => setSidebarExpanded(true)}>
+            <div 
+              key={idx} 
+              className={idx == 1 && userRole !== 1 ? 'hidden' : ''}
+              onMouseEnter={() => setSidebarExpanded(true)}
+            >
               {Array.isArray(row.item) ? (
                 <>
-                  <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
+                  <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3 pt-2">
                     <span className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">
                       •••
                     </span>
@@ -84,7 +93,7 @@ const SideBar = () => {
                         >
                           <div className="flex items-center">
                             {/* <i className="text-2xl"><MdDashboard/></i> */}
-                            <i className="text-2xl">i</i>
+                            <i className={`text-2xl hidden ${sidebarExpanded ? 'lg:hidden' : 'lg:block'}`} ><AiFillCaretRight /></i>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{rowLink.label}</span>
                           </div>
                         </NavLink>
@@ -93,23 +102,22 @@ const SideBar = () => {
                   </ul>
                 </>
               ) : (
-                <ul>
-                  <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0`}>
-                    <NavLink
-                      end
-                      to={row.item}
-                      className={({ isActive }) =>
-                        'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' + (isActive ? '!text-indigo-500' : '')
-                      }
-                    >
-                      <div className="flex items-center">
-                        {/* <i className="text-2xl"><MdMoveToInbox/></i> */}
-                        <i className="text-2xl">icon</i>
-                        <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{row.title}</span>
-                      </div>
-                    </NavLink>
-                  </li>
-                </ul>
+                <div className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0`}>
+                  <NavLink
+                    end
+                    to={row.item}
+                    className={({ isActive }) =>
+                      'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' + (isActive ? '!text-indigo-500' : '')
+                    }
+                  >
+                    <div className="flex items-center">
+                      <i className={`text-2xl hidden ${sidebarExpanded ? 'lg:hidden' : 'lg:block'}`} ><AiFillCaretRight /></i>
+                      {/* <i className="text-2xl"><MdMoveToInbox/></i> */}
+                      {/* <i className="text-2xl">icon</i> */}
+                      <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{row.title}</span>
+                    </div>
+                  </NavLink>
+                </div>
               )}
             </div>  
           ))}

@@ -11,5 +11,6 @@ class Role extends Model
 
     protected $fillable = [
         'name',
+        'is_delete'
     ];
 }

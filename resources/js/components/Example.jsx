@@ -12,12 +12,9 @@ function Example() {
 
                         <div className="card-body">I'm an example component!</div>
                     </div>
-                    <ul className='bg-red-600 rounded-md'>
+                    <ul className='bg-red-600 rounded-md flex justify-center items-center'>
                         <li>
-                            <Link to={'/dashboard'}>dashboard</Link>
-                        </li>
-                        <li>
-                            <Link to={'/dashboard/about'}>about</Link>
+                            <Link to={'/login'}>Login</Link>
                         </li>
                     </ul>
                 </div>
