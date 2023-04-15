@@ -11,6 +11,9 @@ import Role from '../pages/users/Role'
 import RoleAdd from '../pages/users/RoleAdd'
 import RoleEdit from '../pages/users/RoleEdit'
 import UserEdit from '../pages/users/UserEdit'
+import Category from '../pages/category/Category'
+import CategoryAdd from '../pages/category/CategoryAdd'
+import CategoryEdit from '../pages/category/CategoryEdit'
 
 const index = () => {
   return (
@@ -25,6 +28,11 @@ const index = () => {
           <Route index element={<Users />} />
           <Route path='add' element={<UserAdd />} />
           <Route path=':id' element={<UserEdit />} />
+        </Route>
+        <Route path="/category" >
+          <Route index element={<Category />} />
+          <Route path="add" element={<CategoryAdd />} />
+          <Route path=":id" element={<CategoryEdit />} />
         </Route>
 
         <Route path="/role" >
