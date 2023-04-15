@@ -44,7 +44,7 @@ class RoleController extends Controller
                 'name' => $request['name'],
             ]);
             return response()->json([
-                'message' => 'pendaftaran berhasil',
+                'message' => 'Crate Role successfully',
                 'data' => $role
             ], 201);
         } catch (\Throwable $th) {
@@ -69,7 +69,7 @@ class RoleController extends Controller
                 'name' => $request['name'],
             ]);
         return response()->json([
-            'message' => 'Data Role successfully updated',
+            'message' => 'Role successfully updated',
         ], 200);
     }
 

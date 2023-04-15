@@ -28,7 +28,9 @@
         "lodash": "^4.17.21",
         "react-icons": "^4.8.0",
         "react-router-dom": "^6.10.0",
+        "react-toastify": "^9.1.2",
         "react-transition-group": "^4.4.5",
+        "toastr": "^2.1.4",
         "zustand": "^4.3.7"
     }
 }

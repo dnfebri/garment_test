@@ -6,7 +6,9 @@ const authMe = create((set) => ({
   auth: true,
   user: {},
   role: 0,
-  isLoading: false
+  isLoading: false,
+  isSuccess: false,
+  message: ''
 }));
 
 export const useUser = () => {
@@ -14,6 +16,8 @@ export const useUser = () => {
   const authUser = authMe((e) => e.user);
   const userRole = authMe((e) => e.role);
   const isLoading = authMe((e) => e.isLoading);
+  const isSuccess = authMe((e) => e.isSuccess);
+  const message = authMe((e) => e.message);
   useEffect(() => {
     getAuthMe()
   }, []);
@@ -39,5 +43,12 @@ export const useUser = () => {
     }
   }
 
-  return {getAuthMe, auth, userRole, authUser, isLoading};
+  const setAlert = (isSuccess, message) => {
+    authMe.setState({
+      isSuccess: isSuccess,
+      message: message
+    });
+  }
+
+  return {getAuthMe, auth, userRole, authUser, isLoading, isSuccess, message, setAlert};
 }
