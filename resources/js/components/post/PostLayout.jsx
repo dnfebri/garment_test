@@ -97,9 +97,6 @@ const PostLayout = () => {
               ))}
             </div>
           )}
-          {/* <div className="flex flex-wrap justify-evenly gap-4">
-          </div> */}
-
         </div>
       </div>
   )

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notes;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -48,12 +49,21 @@ class PostController extends Controller
             'description' => 'required',
             'category_id' => 'required',
             'description_note' => 'required',
+            'file_pdf' => 'required|mimes:pdf|max:512',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages());
+            return response()->json($validator->messages(), 400);
         }
-        $json = '';
+
+        // Proses file pdf
+        $fileName = Str::slug($request['title']) . '.' . $request->file('file_pdf')->extension();
+        $saveFile = $request->file('file_pdf')
+            ->storeAs('pdf', $fileName, ['disk' => 'public']);
+        $json = (object) [
+            'file_pdf' => Storage::url($saveFile)
+        ];
+
         try {
             $post = Post::create([
                 'uuid' => Str::uuid(),
@@ -62,7 +72,7 @@ class PostController extends Controller
                 'description' => $request['description'],
                 'user_id' => auth()->user()->id,
                 'category_id' => $request['category_id'],
-                'json' => $json,
+                'json' => json_encode($json),
             ]);
             $note = Notes::create([
                 'post_id' => $post->id,
@@ -78,6 +88,12 @@ class PostController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => $th], 400);
         }
+        // return response()->json([
+        //     'message' => "file Upload success", 
+        //     "file_name" => $fileName,
+        //     "save_file" => Storage::url($saveFile),
+        //     "json" => json_encode($json)
+        // ], 201);
     }
 
     public function update(Request $request, $uuid)
@@ -94,12 +110,26 @@ class PostController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages());
+            return response()->json($validator->messages(), 400);
         }
-        $json = '';
         $post = Post::where('uuid', $uuid)->first();
         if (!$post) {
             return response()->json(['error' => 'Post Not found'], 404);
+        }
+        $json = json_decode($post->json);
+        if ($request->file('file_pdf')) {
+            $validator = Validator::make($request->all(), [
+                'file_pdf' => 'required|mimes:pdf|max:512',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json($validator->messages(), 400);
+            }
+            // Proses file pdf
+            $fileName = Str::slug($request['title']) . '.' . $request->file('file_pdf')->extension();
+            $saveFile = $request->file('file_pdf')
+                ->storeAs('pdf', $fileName, ['disk' => 'public']);
+            $json->file_pdf = Storage::url($saveFile);
         }
         try {
             Post::where('id', $post->id)
@@ -108,7 +138,7 @@ class PostController extends Controller
                     'subtitle' => $request['subtitle'],
                     'description' => $request['description'],
                     'category_id' => $request['category_id'],
-                    'json' => $json,
+                    'json' => json_encode($json),
                 ]);
             $note = Notes::create([
                 'post_id' => $post->id,
