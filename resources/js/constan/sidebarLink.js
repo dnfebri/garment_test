@@ -7,6 +7,7 @@ export const SIDEBAR_LINK = [
   ]},
   {title: "Master", item:[
     {label: "Category", uri: "/category"}
-  ]}
+  ]},
+  {title: "Posts", item:'/posts'},
   // {title: "Product", item:[{label: "Product", uri: "#"}, {label: "Add", uri: "#"}]}
 ];

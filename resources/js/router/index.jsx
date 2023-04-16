@@ -14,6 +14,8 @@ import UserEdit from '../pages/users/UserEdit'
 import Category from '../pages/category/Category'
 import CategoryAdd from '../pages/category/CategoryAdd'
 import CategoryEdit from '../pages/category/CategoryEdit'
+import Posts from '../pages/posts/Posts'
+import PostView from '../pages/posts/PostView'
 
 const index = () => {
   return (
@@ -33,6 +35,13 @@ const index = () => {
           <Route index element={<Category />} />
           <Route path="add" element={<CategoryAdd />} />
           <Route path=":id" element={<CategoryEdit />} />
+        </Route>
+
+        <Route path="post/:uuid" element={<PostView />} />
+        <Route path="/posts" >
+          <Route index element={<Posts />} />
+          {/* <Route path="add" element={<CategoryAdd />} />
+          <Route path=":id" element={<CategoryEdit />} /> */}
         </Route>
 
         <Route path="/role" >
