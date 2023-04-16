@@ -33,7 +33,7 @@ const Notes = ({data}) => {
                       {row.action}
                     </th>
                     <td className="px-6 py-4">
-                      {row.id}
+                      {row.user_id}
                     </td>
                     <td className="px-6 py-4">
                       {row.description}

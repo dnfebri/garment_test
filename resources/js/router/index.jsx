@@ -16,6 +16,7 @@ import CategoryAdd from '../pages/category/CategoryAdd'
 import CategoryEdit from '../pages/category/CategoryEdit'
 import Posts from '../pages/posts/Posts'
 import PostView from '../pages/posts/PostView'
+import PostsAdd from '../pages/posts/PostsAdd'
 
 const index = () => {
   return (
@@ -40,8 +41,8 @@ const index = () => {
         <Route path="post/:uuid" element={<PostView />} />
         <Route path="/posts" >
           <Route index element={<Posts />} />
-          {/* <Route path="add" element={<CategoryAdd />} />
-          <Route path=":id" element={<CategoryEdit />} /> */}
+          <Route path="add" element={<PostsAdd />} />
+          {/* <Route path=":id" element={<CategoryEdit />} /> */}
         </Route>
 
         <Route path="/role" >

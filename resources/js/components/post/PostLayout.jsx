@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useCategory } from '../../app/useCategory';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const PostLayout = () => {
 
+  const {pathname} = useLocation();
   const {getCategory, categorys} = useCategory();
   const [selectCategory, setSelectCategory] = useState('');
   const [search, setSearch] = useState('');
@@ -40,7 +41,10 @@ const PostLayout = () => {
     <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-md border border-slate-200">
         {/* <ToastContainer /> */}
         <header className="px-5 py-3 border-b border-slate-100 md:flex justify-between items-center">
-          <h2 className="font-semibold text-slate-800">All Posts</h2>
+          <div className='flex items-center gap-4'>
+            <h2 className="font-semibold text-slate-800">All Posts</h2>
+            <Link to="/posts/add" className={`mx-0.5 py-1 px-4 rounded-md text-white bg-green-500 ${!pathname.includes('posts') ? 'hidden' : ''}`}>Add</Link>
+          </div>
           {/* <Link to="/users/add" className={`mx-0.5 py-1 px-4 rounded-md text-white bg-green-500`}>Add</Link> */}
           <div className='sm:flex items-center sm:space-x-4'>
             <select 
