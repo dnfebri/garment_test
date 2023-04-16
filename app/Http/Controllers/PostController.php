@@ -12,7 +12,11 @@ class PostController extends Controller
 {
     public function getAll()
     {
-        $post = Post::where('is_delete', 0)->orderBy('id', 'DESC')->get();
+        $post = Post::where('is_delete', 0)
+            ->where('title','LIKE','%'.request()['search'].'%')
+            ->where('category_id','LIKE','%'.request()['category'].'%')
+            ->orderBy('id', 'DESC')
+            ->get();
         return response()->json([
             'message' => 'Data Post All',
             'data' => $post
